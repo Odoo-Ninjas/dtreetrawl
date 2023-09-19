@@ -1,10 +1,9 @@
 CC = gcc
 CFLAGS = -g -O3 -I./ \
-	 -Wall \
-	 -Wextra \
-	 -Wno-unused-parameter \
-	 $(shell pkg-config --cflags glib-2.0)
-LDFLAGS = $(shell pkg-config --libs glib-2.0)
+	-Wall \
+	-Wextra \
+	-Wno-unused-parameter \
+	$(shell pkg-config --cflags --libs glib-2.0)
 
 PROG = dtreetrawl
 HDRS = dtreetrawl.h
@@ -15,7 +14,9 @@ OBJS = $(SRCS:.c=.o)
 all : $(PROG)
 
 $(PROG) : $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $(PROG)
+	gcc -O3 -Wall -Wextra -Wno-unused-parameter $(SRCS) -I./ \
+	$(shell pkg-config --cflags --libs glib-2.0) \
+	-o$(PROG) 
 
 dtreetrawl.o : dtreetrawl.c dtreetrawl.h
 
